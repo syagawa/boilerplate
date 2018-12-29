@@ -50,7 +50,7 @@ module.exports = {
         },
         componentsOptions: {
           InjectAsComment: {
-            tag: 'BOG Build Version {version} - {date}'
+            tag: 'Build Version {version} - {date}'
           }
         }
       })
@@ -58,7 +58,6 @@ module.exports = {
     resolve: {
       alias: {
         vue: 'vue/dist/vue.js',
-        // aliasxxx$: path.resolve(__dirname, 'js/test2.js')
         settings_override$: path.resolve(__dirname, settings_override_file_name)
       }
     }
@@ -101,7 +100,7 @@ module.exports = {
         },
         componentsOptions: {
           InjectAsComment: {
-            tag: 'BOG Build Version {version}'
+            tag: 'Build Version {version}'
           }
         }
       })
