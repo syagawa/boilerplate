@@ -15,6 +15,22 @@ $ cd <this.repository>
 
 $ npm install
 
+$ npm install -g gulp@4.0.0
+
 ```
 
+2. develop
 
+```bash
+
+
+# coding with gulp
+
+$ gulp
+
+# publish files
+
+$ gulp build
+
+
+```
