@@ -51,10 +51,11 @@ function webpackJSError(){
   errorHandler("Webpack Error : JS");
   this.emit("end");
 }
+
 function webpackCSSError(){
   errorHandler("Webpack Error : CSS / SCSS");
   this.emit("end");
-};
+}
 
 function pugs(){
   return gulp.src([paths.pugs.src, paths.pugs.exclude])
