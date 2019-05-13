@@ -1,6 +1,8 @@
-const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const WebpackAutoInject = require("webpack-auto-inject-version");
 const path = require("path");
+
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const FixStyleOnlyEntriesPlugin = require("webpack-fix-style-only-entries");
 
 let ENV = process.env.NODE_ENV;
 const MODE = process.env.APP_MODE;
@@ -70,29 +72,31 @@ module.exports = {
         "./src/styles/main.scss"
       ]
     },
-    output: {
-      filename: "[name].css"
-    },
     module: {
       rules: [
         {
-          test: /\.scss$/,
-          loader: ExtractTextPlugin.extract({
-            fallback: "style-loader",
-            use: "css-loader!sass-loader"
-          })
-        },
-        {
-          test: /\.css$/,
-          loader: ExtractTextPlugin.extract({
-            fallback: "style-loader",
-            use: "css-loader"
-          })
+          test: /\.(sa|sc|c)ss$/,
+          use: [
+            {
+              loader: MiniCssExtractPlugin.loader,
+            },
+            'css-loader',
+            'sass-loader',
+          ],
         }
       ]
     },
     plugins: [
-      new ExtractTextPlugin("[name].css"),
+      new FixStyleOnlyEntriesPlugin(),
+      new MiniCssExtractPlugin({
+        // Options similar to the same options in webpackOptions.output
+        // both options are optional
+        // filename: devMode ? '[name].css' : '[name].[hash].css',
+        // chunkFilename: devMode ? '[id].css' : '[id].[hash].css',
+        filename: '[name].css'
+      }),
+
+      // new ExtractTextPlugin("[name].css"),
       new WebpackAutoInject({
         PACKAGE_JSON_PATH: 'package.json',
         components: {
