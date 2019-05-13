@@ -112,3 +112,7 @@ module.exports = {
   }
 
 };
+
+if (ENV !== 'production') {
+    module.exports.js.devtool = 'inline-source-map';
+}
