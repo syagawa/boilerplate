@@ -15,7 +15,7 @@ $ cd <this.repository>
 
 $ npm install
 
-$ npm install -g gulp@4.0.0
+$ npm install -g gulp@4.0.2
 
 ```
 
@@ -28,7 +28,7 @@ $ npm install -g gulp@4.0.0
 
 $ gulp
 
-# publish files
+# publish files to dist
 
 $ gulp build
 
