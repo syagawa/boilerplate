@@ -13,6 +13,7 @@ import autoprefixer from "gulp-autoprefixer";
 
 import pug from "gulp-pug";
 
+import del from "del";
 
 const paths = {
   styles: {
@@ -27,6 +28,11 @@ const paths = {
     src: 'src/pug/**/*.pug',
     exclude: '!src/pug/**/_*.pug',
     dest: 'dist/'
+  },
+  dels: {
+    jsincss: {
+      src: "dist/css/**/*.js"
+    }
   }
 };
 
@@ -77,12 +83,15 @@ function sass2css(){
     .pipe(browser.reload({stream:true}));
 }
 
-
+function delfile(){
+  return del([paths.dels.jsincss.src]);
+}
 
 function watch(){
   gulp.watch(paths.pugs.src, pugs);
   gulp.watch(paths.scripts.src, js2js);
   gulp.watch(paths.styles.src, sass2css);
+  gulp.watch(paths.dels.jsincss.src, delfile);
 }
 
 function server(){
@@ -96,7 +105,7 @@ function server(){
   });
 }
 
-const build = gulp.series(pugs, js2js, sass2css);
+const build = gulp.series(pugs, js2js, sass2css, delfile);
 gulp.task('build', build);
 
 const start = gulp.parallel( build, server, watch);

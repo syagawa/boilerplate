@@ -88,13 +88,13 @@ module.exports = {
         }
       ]
     },
-    // optimization: {
-    //   minimizer: [
-    //     new OptimizeCSSAssetsPlugin({
-    //       cssProcessor: require("cssnano")
-    //     })
-    //   ]
-    // },
+    optimization: {
+      // minimizer: [
+      //   new OptimizeCSSAssetsPlugin({
+      //     cssProcessor: require("cssnano")
+      //   })
+      // ],
+    },
     plugins: [
       new OptimizeCSSAssetsPlugin({
           cssProcessor: require("cssnano")
