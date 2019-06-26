@@ -3,6 +3,8 @@ const path = require("path");
 
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const FixStyleOnlyEntriesPlugin = require("webpack-fix-style-only-entries");
+const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
+
 
 let ENV = process.env.NODE_ENV;
 const MODE = process.env.APP_MODE;
@@ -86,13 +88,22 @@ module.exports = {
         }
       ]
     },
+    // optimization: {
+    //   minimizer: [
+    //     new OptimizeCSSAssetsPlugin({
+    //       cssProcessor: require("cssnano")
+    //     })
+    //   ]
+    // },
     plugins: [
-      new FixStyleOnlyEntriesPlugin(),
+      new OptimizeCSSAssetsPlugin({
+          cssProcessor: require("cssnano")
+      }),
       new MiniCssExtractPlugin({
         // Options similar to the same options in webpackOptions.output
         // both options are optional
         // filename: devMode ? '[name].css' : '[name].[hash].css',
-        // chunkFilename: devMode ? '[id].css' : '[id].[hash].css',
+        // chunkFilename: MODE ? '[id].css' : '[id].[hash].css',
         filename: '[name].css'
       }),
 
@@ -107,7 +118,8 @@ module.exports = {
             tag: 'Build Version {version}'
           }
         }
-      })
+      }),
+      new FixStyleOnlyEntriesPlugin()
     ]
   }
 
