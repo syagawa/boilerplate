@@ -7,9 +7,6 @@ import webpackConfig from "./webpack.config";
 const notifier = require("node-notifier");
 
 import browser from "browser-sync";
-import plumber from "gulp-plumber";
-
-import autoprefixer from "gulp-autoprefixer";
 
 import pug from "gulp-pug";
 

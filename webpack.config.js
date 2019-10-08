@@ -8,13 +8,8 @@ const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 
 let ENV = process.env.NODE_ENV;
 const MODE = process.env.APP_MODE;
-let settings_override_file_name = "js/settings/settings.empty.js";
 if(ENV !== "production"){
   ENV = "development";
-  settings_override_file_name = "js/settings/settings.dev.js";
-}
-if(MODE === "test"){
-  settings_override_file_name = "js/settings/settings.test.js";
 }
 
 module.exports = {
@@ -35,14 +30,6 @@ module.exports = {
           options: {
             presets: ["@babel/preset-env"]
           }
-        },
-        {
-          test: /\.vue$/,
-          loader: 'vue-loader'
-        },
-        {
-          test: /execute\.js$/,
-          use: 'raw-loader'
         }
       ]
     },
@@ -58,13 +45,7 @@ module.exports = {
           }
         }
       })
-    ],
-    resolve: {
-      alias: {
-        vue: 'vue/dist/vue.js',
-        settings_override$: path.resolve(__dirname, settings_override_file_name)
-      }
-    }
+    ]
   }
   ,
   "css": {
@@ -88,26 +69,13 @@ module.exports = {
         }
       ]
     },
-    optimization: {
-      // minimizer: [
-      //   new OptimizeCSSAssetsPlugin({
-      //     cssProcessor: require("cssnano")
-      //   })
-      // ],
-    },
     plugins: [
       new OptimizeCSSAssetsPlugin({
           cssProcessor: require("cssnano")
       }),
       new MiniCssExtractPlugin({
-        // Options similar to the same options in webpackOptions.output
-        // both options are optional
-        // filename: devMode ? '[name].css' : '[name].[hash].css',
-        // chunkFilename: MODE ? '[id].css' : '[id].[hash].css',
         filename: '[name].css'
       }),
-
-      // new ExtractTextPlugin("[name].css"),
       new WebpackAutoInject({
         PACKAGE_JSON_PATH: 'package.json',
         components: {
